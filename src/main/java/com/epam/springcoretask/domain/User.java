@@ -1,8 +1,6 @@
 package com.epam.springcoretask.domain;
 
-import com.epam.springcoretask.domain.DomainObject;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -12,94 +10,90 @@ import java.util.TreeSet;
  */
 public class User extends DomainObject {
 
-    private LocalDateTime birthday;
+  private LocalDate birthday;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private NavigableSet<Ticket> tickets = new TreeSet<>();
 
-    private String firstName;
+  public String getFirstName() {
+    return firstName;
+  }
 
-    private String lastName;
+  public void setFirstName( String firstName ) {
+    this.firstName = firstName;
+  }
 
-    private String email;
+  public String getLastName() {
+    return lastName;
+  }
 
-    private NavigableSet<Ticket> tickets = new TreeSet<>();
+  public void setLastName( String lastName ) {
+    this.lastName = lastName;
+  }
 
-    public String getFirstName() {
-        return firstName;
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail( String email ) {
+    this.email = email;
+  }
+
+  public NavigableSet<Ticket> getTickets() {
+    return tickets;
+  }
+
+  public void setTickets( NavigableSet<Ticket> tickets ) {
+    this.tickets = tickets;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash( firstName, lastName, email );
+  }
+
+  @Override
+  public boolean equals( Object obj ) {
+    if ( this == obj ) {
+      return true;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    if ( obj == null ) {
+      return false;
     }
-
-    public String getLastName() {
-        return lastName;
+    if ( getClass() != obj.getClass() ) {
+      return false;
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    User other = (User) obj;
+    if ( email == null ) {
+      if ( other.email != null ) {
+        return false;
+      }
+    } else if ( !email.equals( other.email ) ) {
+      return false;
     }
-
-    public String getEmail() {
-        return email;
+    if ( firstName == null ) {
+      if ( other.firstName != null ) {
+        return false;
+      }
+    } else if ( !firstName.equals( other.firstName ) ) {
+      return false;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    if ( lastName == null ) {
+      if ( other.lastName != null ) {
+        return false;
+      }
+    } else if ( !lastName.equals( other.lastName ) ) {
+      return false;
     }
+    return true;
+  }
 
-    public NavigableSet<Ticket> getTickets() {
-        return tickets;
-    }
+  public void setBirthday( LocalDate birthday ) {
+    this.birthday = birthday;
+  }
 
-    public void setTickets(NavigableSet<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, email);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        User other = (User) obj;
-        if (email == null) {
-            if (other.email != null) {
-                return false;
-            }
-        } else if (!email.equals(other.email)) {
-            return false;
-        }
-        if (firstName == null) {
-            if (other.firstName != null) {
-                return false;
-            }
-        } else if (!firstName.equals(other.firstName)) {
-            return false;
-        }
-        if (lastName == null) {
-            if (other.lastName != null) {
-                return false;
-            }
-        } else if (!lastName.equals(other.lastName)) {
-            return false;
-        }
-        return true;
-    }
-
-    public void setBirthday( LocalDateTime birthday ) {
-        this.birthday = birthday;
-    }
-
-    public LocalDateTime getBirthday() {
-        return birthday;
-    }
+  public LocalDate getBirthday() {
+    return birthday;
+  }
 }

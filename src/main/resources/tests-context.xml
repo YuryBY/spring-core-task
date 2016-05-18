@@ -1,44 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
- 		http://www.springframework.org/schema/util
- 		http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>file:src/main/resources/auditoriums.properties</value>
-            </list>
-        </property>
-        <!-- <property name="ignoreResourceNotFound" value="true" />-->
-        <property name="systemPropertiesMode">
-            <util:constant
-                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-        </property>
-    </bean>
 
-    <bean id="auditoriumServiceImpl" class="ua.epam.spring.hometask.service.impl.AuditoriumServiceImpl">
-        <constructor-arg index="0" value="${auditoriums.names}"/>
-        <constructor-arg index="1" value="${auditoriums.seatsNumbers}"/>
-        <constructor-arg index="2" value="${auditoriums.vipSeats}"/>
-    </bean>
-
-    <bean id="discountServiceImpl" class="ua.epam.spring.hometask.service.impl.DiscountServiceImpl">
-    </bean>
-
-    <bean id="bookingServiceImpl" class="ua.epam.spring.hometask.service.impl.BookingServiceImpl">
-        <constructor-arg ref="discountServiceImpl"/>
-    </bean>
-
-    <bean id="eventServiceImpl" class="ua.epam.spring.hometask.service.impl.EventServiceImpl">
-    </bean>
-
-    <bean id="userServiceImpl" class="ua.epam.spring.hometask.service.impl.UserServiceImpl">
-    </bean>
 
 </beans>
 
