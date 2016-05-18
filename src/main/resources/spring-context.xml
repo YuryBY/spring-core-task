@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+
+    <bean id="auditoriumServiceImpl" class="com.epam.springcoretask.service.implementation.AuditoriumServiceImpl">
+        <property name="AuditoriumDAO">
+            <bean class="com.epam.springcoretask.dao.AuditoriumDAO" init-method="init"/>
+        </property>
+    </bean>
+
+    <bean id="discountServiceImpl" class="com.epam.springcoretask.service.implementation.DiscountServiceImpl"/>
+
+    <bean id="bookingServiceImpl" class="com.epam.springcoretask.service.implementation.BookingServiceImpl">
+        <constructor-arg ref="discountServiceImpl"/>
+    </bean>
+
+    <bean id="eventServiceImpl" class="com.epam.springcoretask.service.implementation.EventServiceImpl">
+        <property name="EventDAO">
+            <bean class="com.epam.springcoretask.dao.EventDAO"/>
+        </property>
+    </bean>
+
+    <bean id="userServiceImpl" class="com.epam.springcoretask.service.implementation.UserServiceImpl">
+        <property name="UserDAO">
+            <bean class="com.epam.springcoretask.dao.UserDAO"/>
+        </property>
+    </bean>
+
+</beans>
+

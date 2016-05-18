@@ -2,6 +2,8 @@ package com.epam.springcoretask.dao;
 
 import com.epam.springcoretask.domain.Auditorium;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -20,9 +22,16 @@ public class AuditoriumDAO {
 
   public void init() {
     Properties prop = new Properties();
-    String fileName = "auditorium.properties";
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream( fileName );
+    String fileName = "src/main/resources/auditorium.properties";
+    InputStream inputStream = null;
+    try {
+      inputStream = new FileInputStream("src/main/resources/auditorium.properties");
+    } catch ( FileNotFoundException e ) {
+      e.printStackTrace();
+    }
+    ;//getClass().getClassLoader().getResourceAsStream( fileName );
     if ( inputStream != null ) {
+      //System.err.println("(**()$@*(@($#*%&#(*@&%(*#@&(*%&#@*%&(*#@&%(*#(*#%(*&#(*%#(*@%&");
       try {
         prop.load( inputStream );
       } catch ( IOException e ) {
@@ -49,11 +58,11 @@ public class AuditoriumDAO {
     Auditorium auditorium = new Auditorium();
     String[] auditoriumInfo = value.split( ";" );
     auditorium.setName( auditoriumInfo[0] );
-    auditorium.setNumberOfSeats( Long.valueOf( auditoriumInfo[1] ) );
-    String[] seats = auditoriumInfo[2].split( "," );
+    auditorium.setNumberOfSeats( Long.valueOf( auditoriumInfo[1].trim() ) );
+    String[] vipSeats = auditoriumInfo[2].split( "," );
     Set<Long> seatsSet = new HashSet<>();
-    for ( String seat : seats ) {
-      seatsSet.add( Long.valueOf( seat ) );
+    for ( String seat : vipSeats ) {
+      seatsSet.add( Long.valueOf( seat.trim() ) );
     }
     auditorium.setVipSeats( seatsSet );
     return auditorium;

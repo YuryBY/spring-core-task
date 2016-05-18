@@ -4,7 +4,9 @@ import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.service.DiscountService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
@@ -13,7 +15,10 @@ public class DiscountServiceImpl implements DiscountService {
 
   @Override
   public byte getDiscount( User user, Event event, LocalDateTime airDateTime, long numberOfTickets ) {
-    if ( user.getBirthday().equals( airDateTime.toLocalDate() ) ) {
+    Month eventMonth = airDateTime.toLocalDate().getMonth();
+    int eventDay = airDateTime.toLocalDate().getDayOfMonth();
+    LocalDate birthday = user.getBirthday();
+    if ( birthday.getMonth().equals( eventMonth ) && birthday.getDayOfMonth() == eventDay ) {
       return new BirthdayStrategy().getDiscount();
     }
     if ( numberOfTickets >= 10 ) {

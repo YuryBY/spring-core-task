@@ -5,14 +5,21 @@ package com.epam.springcoretask.domain;
  */
 public class DomainObject {
 
-    private Long id;
+  private Long id;
 
-    public Long getId() {
-        return id;
-    }
+  public DomainObject() {
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public DomainObject( Long id ) {
+    this.id = id;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId( Long id ) {
+    this.id = id;
+  }
 
 }

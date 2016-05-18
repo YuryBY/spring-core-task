@@ -1,5 +1,8 @@
 package com.epam.springcoretask.domain;
 
+import com.epam.springcoretask.domain.util.EventRating;
+import com.epam.springcoretask.exception.EventInitializationException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -14,6 +17,7 @@ public class Event extends DomainObject {
 
   private String name;
   private double basePrice;
+  private EventRating eventRating;
   //one event per one day
   private NavigableMap<LocalDate, Auditorium> datePlace = new TreeMap<>();
 
@@ -36,6 +40,10 @@ public class Event extends DomainObject {
     return name;
   }
 
+  public Set<LocalDate> getDates() {
+    return datePlace.keySet();
+  }
+
   public double getBasePrice() {
     return basePrice;
   }
@@ -52,8 +60,12 @@ public class Event extends DomainObject {
     this.basePrice = basePrice;
   }
 
-  public void setDatePlace( NavigableMap<LocalDate, Auditorium> datePlace ) {
-    this.datePlace = datePlace;
+  public void addDatePlace( LocalDate date, Auditorium auditorium ) throws EventInitializationException {
+    if ( !datePlace.containsKey( date ) ) {
+      datePlace.put( date, auditorium );
+    } else {
+      throw new EventInitializationException( "Auditorium has been specified" );
+    }
   }
 
   @Override
@@ -90,5 +102,13 @@ public class Event extends DomainObject {
 
   public void setPlacePurchasedTickets( NavigableMap<Auditorium, Set<Ticket>> placePurchasedTickets ) {
     this.placePurchasedTickets = placePurchasedTickets;
+  }
+
+  public EventRating getEventRating() {
+    return eventRating;
+  }
+
+  public void setRating( EventRating eventRating ) {
+    this.eventRating = eventRating;
   }
 }

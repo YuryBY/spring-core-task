@@ -4,6 +4,7 @@ import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.Ticket;
 import com.epam.springcoretask.domain.User;
+import com.epam.springcoretask.domain.util.EventRating;
 import com.epam.springcoretask.exception.AlreadyBookedException;
 import com.epam.springcoretask.service.BookingService;
 
@@ -20,6 +21,7 @@ import java.util.Set;
  */
 public class BookingServiceImpl implements BookingService {
   private final double vipSeatsCoeff = 2;
+  private final double highRatingCoeff = 1.2;
   private DiscountServiceImpl discount;
 
   public BookingServiceImpl( DiscountServiceImpl discount) {
@@ -30,6 +32,7 @@ public class BookingServiceImpl implements BookingService {
   public double getTicketsPrice( Event event, LocalDateTime dateTime, User user, Set<Long> seats ) {
     double basePrice = event.getBasePrice();
     int totalSeatsQuantity = seats.size();
+    double ratingCoeff = event.getEventRating().equals( EventRating.HIGH ) ? highRatingCoeff : 1;
     byte discount = this.discount.getDiscount( user, event, dateTime, totalSeatsQuantity );
 
     Auditorium auditorium = null;
@@ -50,7 +53,8 @@ public class BookingServiceImpl implements BookingService {
       }
     }
     int regularSeatsQuantity = totalSeatsQuantity - vipSeatsQuantity;
-    double totalPriceWithoutDiscounts = basePrice * ( regularSeatsQuantity + vipSeatsQuantity * vipSeatsCoeff );
+    double totalPriceWithoutDiscounts =
+        basePrice * ratingCoeff * ( regularSeatsQuantity + vipSeatsQuantity * vipSeatsCoeff );
     double resultPrice = totalPriceWithoutDiscounts - totalPriceWithoutDiscounts * discount / 100;
 
     return resultPrice;

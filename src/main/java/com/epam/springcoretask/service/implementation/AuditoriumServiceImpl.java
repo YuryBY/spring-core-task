@@ -10,6 +10,11 @@ import java.util.Set;
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
 public class AuditoriumServiceImpl implements AuditoriumService {
+
+  public void setAuditoriumDAO( AuditoriumDAO auditoriumDAO ) {
+    this.auditoriumDAO = auditoriumDAO;
+  }
+
   AuditoriumDAO auditoriumDAO;
 
 
