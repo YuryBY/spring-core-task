@@ -13,7 +13,7 @@ public class DiscountServiceImpl implements DiscountService {
 
   @Override
   public byte getDiscount( User user, Event event, LocalDateTime airDateTime, long numberOfTickets ) {
-    if ( user.getBirthday().toLocalDate().equals( airDateTime.toLocalDate() ) ) {
+    if ( user.getBirthday().equals( airDateTime.toLocalDate() ) ) {
       return new BirthdayStrategy().getDiscount();
     }
     if ( numberOfTickets >= 10 ) {

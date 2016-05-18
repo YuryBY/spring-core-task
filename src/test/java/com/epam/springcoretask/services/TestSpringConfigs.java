@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.epam.springcoretask.domain.Event;
-import com.epam.springcoretask.domain.EventRating;
 import com.epam.springcoretask.domain.Ticket;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.service.implementation.AuditoriumServiceImpl;

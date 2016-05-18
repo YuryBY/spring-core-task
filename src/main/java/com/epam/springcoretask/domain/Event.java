@@ -1,210 +1,94 @@
 package com.epam.springcoretask.domain;
 
-import com.epam.springcoretask.domain.DomainObject;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.NavigableMap;
 import java.util.NavigableSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-/**
- * @author Yuriy_Tkach
- */
 public class Event extends DomainObject {
 
-    private String name;
+  private String name;
+  private double basePrice;
+  //one event per one day
+  private NavigableMap<LocalDate, Auditorium> datePlace = new TreeMap<>();
 
-    private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
+  private NavigableMap<Auditorium, Set<Ticket>> placePurchasedTickets = new TreeMap<>();
 
-    private double basePrice;
+  public Auditorium getAuditoriumByDate( LocalDate date ) {
+    return datePlace.get( date );
+  }
 
-    private EventRating rating;
+  public Set<Ticket> getPurchasedTicketsForAuditorium( Auditorium auditorium ) {
+    Set<Ticket> tickets = placePurchasedTickets.get( auditorium );
+    return tickets;
+  }
 
-    private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
+  public Set<Ticket> addTicketsForAuditorium( Auditorium auditorium, Set<Ticket> tickets ) {
+    return placePurchasedTickets.get( auditorium );
+  }
 
-    /**
-     * Checks if event is aired on particular <code>dateTime</code> and assigns
-     * auditorium to it.
-     * 
-     * @param dateTime
-     *            Date and time of aired event for which to assign
-     * @param auditorium
-     *            Auditorium that should be assigned
-     * @return <code>true</code> if successful, <code>false</code> if event is
-     *         not aired on that date
-     */
-    public boolean assignAuditorium(LocalDateTime dateTime, Auditorium auditorium) {
-        if (airDates.contains(dateTime)) {
-            auditoriums.put(dateTime, auditorium);
-            return true;
-        } else {
-            return false;
-        }
-    }
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * Removes auditorium assignment from event
-     * 
-     * @param dateTime
-     *            Date and time to remove auditorium for
-     * @return <code>true</code> if successful, <code>false</code> if not
-     *         removed
-     */
-    public boolean removeAuditoriumAssignment(LocalDateTime dateTime) {
-        return auditoriums.remove(dateTime) != null;
-    }
+  public double getBasePrice() {
+    return basePrice;
+  }
 
-    /**
-     * Add date and time of event air
-     * 
-     * @param dateTime
-     *            Date and time to add
-     * @return <code>true</code> if successful, <code>false</code> if already
-     *         there
-     */
-    public boolean addAirDateTime(LocalDateTime dateTime) {
-        return airDates.add(dateTime);
-    }
+  public NavigableMap<LocalDate, Auditorium> getDatePlace() {
+    return datePlace;
+  }
 
-    /**
-     * Adding date and time of event air and assigning auditorium to that
-     * 
-     * @param dateTime
-     *            Date and time to add
-     * @param auditorium
-     *            Auditorium to add if success in date time add
-     * @return <code>true</code> if successful, <code>false</code> if already
-     *         there
-     */
-    public boolean addAirDateTime(LocalDateTime dateTime, Auditorium auditorium) {
-        boolean result = airDates.add(dateTime);
-        if (result) {
-            auditoriums.put(dateTime, auditorium);
-        }
-        return result;
-    }
+  public void setName( String name ) {
+    this.name = name;
+  }
 
-    /**
-     * Removes the date and time of event air. If auditorium was assigned to
-     * that date and time - the assignment is also removed
-     * 
-     * @param dateTime
-     *            Date and time to remove
-     * @return <code>true</code> if successful, <code>false</code> if not there
-     */
-    public boolean removeAirDateTime(LocalDateTime dateTime) {
-        boolean result = airDates.remove(dateTime);
-        if (result) {
-            auditoriums.remove(dateTime);
-        }
-        return result;
-    }
+  public void setBasePrice( double basePrice ) {
+    this.basePrice = basePrice;
+  }
 
-    /**
-     * Checks if event airs on particular date and time
-     * 
-     * @param dateTime
-     *            Date and time to check
-     * @return <code>true</code> event airs on that date and time
-     */
-    public boolean airsOnDateTime(LocalDateTime dateTime) {
-        return airDates.stream().anyMatch(dt -> dt.equals(dateTime));
-    }
+  public void setDatePlace( NavigableMap<LocalDate, Auditorium> datePlace ) {
+    this.datePlace = datePlace;
+  }
 
-    /**
-     * Checks if event airs on particular date
-     * 
-     * @param date
-     *            Date to ckeck
-     * @return <code>true</code> event airs on that date
-     */
-    public boolean airsOnDate(LocalDate date) {
-        return airDates.stream().anyMatch(dt -> dt.toLocalDate().equals(date));
-    }
+  @Override
+  public boolean equals( Object o ) {
+    if ( this == o )
+      return true;
+    if ( o == null || getClass() != o.getClass() )
+      return false;
 
-    /**
-     * Checking if event airs on dates between <code>from</code> and
-     * <code>to</code> inclusive
-     * 
-     * @param from
-     *            Start date to check
-     * @param to
-     *            End date to check
-     * @return <code>true</code> event airs on dates
-     */
-    public boolean airsOnDates(LocalDate from, LocalDate to) {
-        return airDates.stream()
-                .anyMatch(dt -> dt.toLocalDate().compareTo(from) >= 0 && dt.toLocalDate().compareTo(to) <= 0);
-    }
+    Event event = (Event) o;
 
-    public String getName() {
-        return name;
-    }
+    if ( Double.compare( event.basePrice, basePrice ) != 0 )
+      return false;
+    if ( name != null ? !name.equals( event.name ) : event.name != null )
+      return false;
+    return !( datePlace != null ? !datePlace.equals( event.datePlace ) : event.datePlace != null );
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  }
 
-    public NavigableSet<LocalDateTime> getAirDates() {
-        return airDates;
-    }
+  @Override
+  public int hashCode() {
+    int result;
+    long temp;
+    result = name != null ? name.hashCode() : 0;
+    temp = Double.doubleToLongBits( basePrice );
+    result = 31 * result + (int) ( temp ^ ( temp >>> 32 ) );
+    result = 31 * result + ( datePlace != null ? datePlace.hashCode() : 0 );
+    return result;
+  }
 
-    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
-        this.airDates = airDates;
-    }
+  public NavigableMap<Auditorium, Set<Ticket>> getPlacePurchasedTickets() {
+    return placePurchasedTickets;
+  }
 
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public EventRating getRating() {
-        return rating;
-    }
-
-    public void setRating(EventRating rating) {
-        this.rating = rating;
-    }
-
-    public NavigableMap<LocalDateTime, Auditorium> getAuditoriums() {
-        return auditoriums;
-    }
-
-    public void setAuditoriums(NavigableMap<LocalDateTime, Auditorium> auditoriums) {
-        this.auditoriums = auditoriums;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Event other = (Event) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
-
+  public void setPlacePurchasedTickets( NavigableMap<Auditorium, Set<Ticket>> placePurchasedTickets ) {
+    this.placePurchasedTickets = placePurchasedTickets;
+  }
 }
