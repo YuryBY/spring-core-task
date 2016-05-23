@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
-public class EventDAO {
+public class EventDao {
   Map<Long, Event> Events = new HashMap<>();
 
   public Event getEventById( Long id ) {

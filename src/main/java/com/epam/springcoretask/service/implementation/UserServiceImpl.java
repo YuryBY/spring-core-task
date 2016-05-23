@@ -1,6 +1,6 @@
 package com.epam.springcoretask.service.implementation;
 
-import com.epam.springcoretask.dao.UserDAO;
+import com.epam.springcoretask.dao.UserDao;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.service.UserService;
 
@@ -13,11 +13,11 @@ import java.util.Map;
  */
 public class UserServiceImpl implements UserService {
 
-  private UserDAO userDAO;
+  private UserDao userDao;
 
   @Override
   public User getUserByEmail( String email ) {
-    Map<Long, User> users = userDAO.getUsers();
+    Map<Long, User> users = userDao.getUsers();
     for ( Map.Entry<Long, User> entry : users.entrySet() ) {
       User currentUser = entry.getValue();
       if ( currentUser.getEmail().equals( email ) ) {
@@ -29,26 +29,26 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User save( User user ) {
-    return userDAO.saveUser( user );
+    return userDao.saveUser( user );
   }
 
   @Override
   public void remove( User user ) {
-    userDAO.removeUser( user );
+    userDao.removeUser( user );
   }
 
   @Override
   public User getById( Long id ) {
-    return userDAO.getUserById( id );
+    return userDao.getUserById( id );
   }
 
   @Override
   public Collection<User> getAll() {
-    Map<Long, User> users = userDAO.getUsers();
+    Map<Long, User> users = userDao.getUsers();
     return new ArrayList( users.values() );
   }
 
-  public void setUserDAO( UserDAO userDAO ) {
-    this.userDAO = userDAO;
+  public void setUserDao( UserDao userDao ) {
+    this.userDao = userDao;
   }
 }

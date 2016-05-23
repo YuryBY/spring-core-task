@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
-public class UserDAO {
+public class UserDao {
   Map<Long, User> users = new HashMap<>();
 
   public User getUserById( Long id ) {

@@ -2,6 +2,7 @@ package com.epam.springcoretask.services;
 
 import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.domain.Event;
+import com.epam.springcoretask.domain.Ticket;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.domain.util.EventRating;
 import com.epam.springcoretask.service.implementation.AuditoriumServiceImpl;
@@ -18,11 +19,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 /**
@@ -89,23 +92,35 @@ public class TestSpringConfigs {
     user.setEmail( "John_Konor@gmail.com" );
     LocalDate thirdOfMay = LocalDate.of( 1985, Month.MAY, 3 );
     user.setBirthday( thirdOfMay );
-    Set<Long> seats = new HashSet<Long>();
-    seats.add( 2L );
-    seats.add( 15L );
+    Set<Integer> seats = new HashSet<Integer>();
+    seats.add( 2 );
+    seats.add( 15 );
 
     LocalDateTime eventDate = LocalDateTime.of( 2016, Month.MAY, 5, 10, 10, 30 );
 
-    assertEquals( 5.04,
-        bookingServiceImpl.getTicketsPrice( zootopia, eventDate, user, seats ),
-        0.1 );
+    //sanity check
+    assertEquals( 5.04, bookingServiceImpl.getTicketsPrice( zootopia, eventDate, user, seats ), 0.1 );
+
+    Set<Integer> seat = new HashSet<Integer>( Arrays.asList( 7 ) );
+
+    double ticketsPrice = bookingServiceImpl.getTicketsPrice( zootopia, eventDate, user, seat );
+    // the customer interested in price diapason
+    assertEquals( 4, ticketsPrice, 2.1 );
 
     userServiceImpl.save( user );
     assertEquals( "Konor", userServiceImpl.getUserByEmail( "John_Konor@gmail.com" ).getLastName() );
 
     Auditorium vipHall = auditoriumServiceImpl.getByName( "Vip Hall" );
-    HashMap<Auditorium, Integer> auditoriumSeat = new HashMap<Auditorium, Integer>() {{
+    HashMap<Auditorium, Integer> vipSeat = new HashMap<Auditorium, Integer>() {{
       put( vipHall, 7 );
     }};
+
+    Ticket ticket = new Ticket( user, zootopia, eventDate, vipSeat );
+
+    bookingServiceImpl.bookTickets( new HashSet<Ticket>( Arrays.asList( ticket ) ) );
+
+    Set<Ticket> booked = bookingServiceImpl.getPurchasedTicketsForEvent( zootopia, eventDate );
+    assertEquals( 1, booked.size() );
 
   }
 }

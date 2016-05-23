@@ -1,6 +1,6 @@
 package com.epam.springcoretask.service.implementation;
 
-import com.epam.springcoretask.dao.EventDAO;
+import com.epam.springcoretask.dao.EventDao;
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.service.EventService;
 
@@ -13,33 +13,33 @@ import java.util.Map;
  */
 public class EventServiceImpl implements EventService {
 
-  private EventDAO eventDAO;
+  private EventDao eventDao;
 
   @Override
   public Event save( Event event ) {
-    return eventDAO.saveEvent( event );
+    return eventDao.saveEvent( event );
   }
 
   @Override
   public void remove( Event event ) {
-    eventDAO.removeEvent( event );
+    eventDao.removeEvent( event );
 
   }
 
   @Override
   public Event getById( Long id ) {
-    return eventDAO.getEventById( id );
+    return eventDao.getEventById( id );
   }
 
   @Override
   public Collection<Event> getAll() {
-    Map<Long, Event> events = eventDAO.getEvents();
+    Map<Long, Event> events = eventDao.getEvents();
     return new ArrayList( events.values() );
   }
 
   @Override
   public Event getByName( String name ) {
-    Map<Long, Event> events = eventDAO.getEvents();
+    Map<Long, Event> events = eventDao.getEvents();
     for ( Map.Entry<Long, Event> entry : events.entrySet() ) {
       Event currentEvent = entry.getValue();
       if ( currentEvent.getName().equals( name ) ) {
@@ -49,7 +49,7 @@ public class EventServiceImpl implements EventService {
     return null;
   }
 
-  public void setEventDAO( EventDAO eventDAO ) {
-    this.eventDAO = eventDAO;
+  public void setEventDao( EventDao eventDao ) {
+    this.eventDao = eventDao;
   }
 }

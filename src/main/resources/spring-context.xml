@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
- 		http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
-
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+     http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
     <bean id="auditoriumServiceImpl" class="com.epam.springcoretask.service.implementation.AuditoriumServiceImpl">
-        <property name="AuditoriumDAO">
-            <bean class="com.epam.springcoretask.dao.AuditoriumDAO" init-method="init"/>
+        <property name="auditoriumDao">
+            <bean class="com.epam.springcoretask.dao.AuditoriumDao" init-method="init"/>
         </property>
     </bean>
 
-    <bean id="discountServiceImpl" class="com.epam.springcoretask.service.implementation.DiscountServiceImpl"/>
+    <bean id="birthdayStrategy"
+          class="com.epam.springcoretask.service.implementation.discountstrategy.BirthdayStrategy"/>
+    <bean id="ticketsQuantityStrategy"
+          class="com.epam.springcoretask.service.implementation.discountstrategy.TicketsQuantityStrategy"/>
+    <util:list id="strategiesList"
+               value-type="com.epam.springcoretask.service.implementation.discountstrategy.IDiscountStrategy">
+        <ref bean="birthdayStrategy"/>
+        <ref bean="ticketsQuantityStrategy"/>
+    </util:list>
+    <bean id="discountServiceImpl" class="com.epam.springcoretask.service.implementation.DiscountServiceImpl">
+        <property name="strategies" ref="strategiesList"/>
+    </bean>
 
     <bean id="bookingServiceImpl" class="com.epam.springcoretask.service.implementation.BookingServiceImpl">
         <constructor-arg ref="discountServiceImpl"/>
+        <property name="ticketDao">
+            <bean class="com.epam.springcoretask.dao.TicketDao"/>
+        </property>
     </bean>
 
     <bean id="eventServiceImpl" class="com.epam.springcoretask.service.implementation.EventServiceImpl">
-        <property name="EventDAO">
-            <bean class="com.epam.springcoretask.dao.EventDAO"/>
+        <property name="eventDao">
+            <bean class="com.epam.springcoretask.dao.EventDao"/>
         </property>
     </bean>
 
     <bean id="userServiceImpl" class="com.epam.springcoretask.service.implementation.UserServiceImpl">
-        <property name="UserDAO">
-            <bean class="com.epam.springcoretask.dao.UserDAO"/>
+        <property name="userDao">
+            <bean class="com.epam.springcoretask.dao.UserDao"/>
         </property>
     </bean>
 

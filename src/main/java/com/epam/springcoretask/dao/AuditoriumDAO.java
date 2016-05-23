@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
-public class AuditoriumDAO {
+public class AuditoriumDao {
   public Set<Auditorium> getAuditoriums() {
     return auditoriums;
   }

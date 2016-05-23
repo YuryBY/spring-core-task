@@ -1,6 +1,6 @@
 package com.epam.springcoretask.service.implementation;
 
-import com.epam.springcoretask.dao.AuditoriumDAO;
+import com.epam.springcoretask.dao.AuditoriumDao;
 import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.service.AuditoriumService;
 
@@ -11,20 +11,20 @@ import java.util.Set;
  */
 public class AuditoriumServiceImpl implements AuditoriumService {
 
-  public void setAuditoriumDAO( AuditoriumDAO auditoriumDAO ) {
-    this.auditoriumDAO = auditoriumDAO;
+  public void setAuditoriumDao( AuditoriumDao auditoriumDao ) {
+    this.auditoriumDao = auditoriumDao;
   }
 
-  AuditoriumDAO auditoriumDAO;
+  AuditoriumDao auditoriumDao;
 
 
   @Override
   public Set<Auditorium> getAll() {
-    return auditoriumDAO.getAuditoriums();
+    return auditoriumDao.getAuditoriums();
   }
 
   @Override
   public Auditorium getByName( String name ) {
-    return auditoriumDAO.getAuditoriumByName( name );
+    return auditoriumDao.getAuditoriumByName( name );
   }
 }
