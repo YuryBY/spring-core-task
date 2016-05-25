@@ -3,7 +3,9 @@ package com.epam.springcoretask.service.implementation;
 import com.epam.springcoretask.dao.UserDao;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.service.UserService;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -11,8 +13,10 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
+  @Resource
   private UserDao userDao;
 
   @Override

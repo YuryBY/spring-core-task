@@ -1,7 +1,10 @@
 package com.epam.springcoretask.dao;
 
 import com.epam.springcoretask.domain.Auditorium;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +16,7 @@ import java.util.Set;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
+@Repository
 public class AuditoriumDao {
   public Set<Auditorium> getAuditoriums() {
     return auditoriums;
@@ -20,18 +24,17 @@ public class AuditoriumDao {
 
   Set<Auditorium> auditoriums = new HashSet<Auditorium>();
 
+  @PostConstruct
   public void init() {
     Properties prop = new Properties();
     String fileName = "src/main/resources/auditorium.properties";
     InputStream inputStream = null;
     try {
-      inputStream = new FileInputStream("src/main/resources/auditorium.properties");
+      inputStream = new FileInputStream(fileName);
     } catch ( FileNotFoundException e ) {
       e.printStackTrace();
     }
-    ;//getClass().getClassLoader().getResourceAsStream( fileName );
     if ( inputStream != null ) {
-      //System.err.println("(**()$@*(@($#*%&#(*@&%(*#@&(*%&#@*%&(*#@&%(*#(*#%(*&#(*%#(*@%&");
       try {
         prop.load( inputStream );
       } catch ( IOException e ) {

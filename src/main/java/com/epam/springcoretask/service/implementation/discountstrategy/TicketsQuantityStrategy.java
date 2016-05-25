@@ -2,12 +2,14 @@ package com.epam.springcoretask.service.implementation.discountstrategy;
 
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.User;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 /**
  * Created by Yury_Bakhmutski on 5/23/2016.
  */
+@Component
 public class TicketsQuantityStrategy implements IDiscountStrategy {
   byte discount = 50;
 

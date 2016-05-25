@@ -8,7 +8,10 @@ import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.domain.util.EventRating;
 import com.epam.springcoretask.exception.AlreadyBookedException;
 import com.epam.springcoretask.service.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -17,13 +20,17 @@ import java.util.Set;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
+@Service
 public class BookingServiceImpl implements BookingService {
+
+  @Resource
   private TicketDao ticketDao;
   private final double vipSeatsCoeff = 2;
   private final double highRatingCoeff = 1.2;
   private DiscountServiceImpl discount;
   private LocalDate key;
 
+  @Autowired
   public BookingServiceImpl( DiscountServiceImpl discount ) {
     this.discount = discount;
   }

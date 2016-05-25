@@ -3,7 +3,9 @@ package com.epam.springcoretask.service.implementation;
 import com.epam.springcoretask.dao.EventDao;
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.service.EventService;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -11,8 +13,10 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/16/2016.
  */
+@Service
 public class EventServiceImpl implements EventService {
 
+  @Resource
   private EventDao eventDao;
 
   @Override

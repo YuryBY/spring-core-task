@@ -2,6 +2,7 @@ package com.epam.springcoretask.service.implementation.discountstrategy;
 
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.User;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.Month;
 /**
  * Created by Yury_Bakhmutski on 5/23/2016.
  */
+@Component
 public class BirthdayStrategy implements IDiscountStrategy {
   byte discount = 5;
 
