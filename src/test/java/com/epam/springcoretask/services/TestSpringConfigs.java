@@ -1,5 +1,6 @@
 package com.epam.springcoretask.services;
 
+import com.epam.springcoretask.AppConfig;
 import com.epam.springcoretask.aspect.CounterAspect;
 import com.epam.springcoretask.dao.EventStatisticDao;
 import com.epam.springcoretask.domain.Auditorium;
@@ -33,7 +34,8 @@ import static org.junit.Assert.assertNotSame;
 /**
  * Created by Yury_Bakhmutski on 5/17/2016.
  */
-@RunWith( SpringJUnit4ClassRunner.class ) @ContextConfiguration( "file:src/main/resources/spring-context.xml" )
+@RunWith( SpringJUnit4ClassRunner.class )
+@ContextConfiguration(classes = TestAppConfig.class)
 public class TestSpringConfigs {
   @Autowired AuditoriumServiceImpl auditoriumServiceImpl;
 
@@ -42,6 +44,8 @@ public class TestSpringConfigs {
   @Autowired EventServiceImpl eventServiceImpl;
 
   @Autowired UserServiceImpl userServiceImpl;
+
+  @Autowired CounterAspect counterAspect;
 
   @Before
   public void initEvent() throws Exception {
@@ -123,6 +127,8 @@ public class TestSpringConfigs {
 
     Set<Ticket> booked = bookingServiceImpl.getPurchasedTicketsForEvent( zootopia, eventDate );
     assertEquals( 1, booked.size() );
+
+    counterAspect.printGetByNameCallsNumber( zootopia );
 
   }
 }

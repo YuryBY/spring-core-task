@@ -3,7 +3,6 @@ package com.epam.springcoretask.service.implementation;
 import com.epam.springcoretask.dao.AuditoriumDao;
 import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.service.AuditoriumService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
