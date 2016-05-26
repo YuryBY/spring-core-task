@@ -1,13 +1,15 @@
 package com.epam.springcoretask.services;
 
 import com.epam.springcoretask.aspect.CounterAspect;
-import com.epam.springcoretask.dao.EventStatisticDao;
 import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.Ticket;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.domain.util.EventRating;
-import com.epam.springcoretask.service.implementation.AuditoriumServiceImpl;
+import com.epam.springcoretask.service.AuditoriumService;
+import com.epam.springcoretask.service.BookingService;
+import com.epam.springcoretask.service.EventService;
+import com.epam.springcoretask.service.UserService;
 import com.epam.springcoretask.service.implementation.BookingServiceImpl;
 import com.epam.springcoretask.service.implementation.EventServiceImpl;
 import com.epam.springcoretask.service.implementation.UserServiceImpl;
@@ -27,21 +29,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
 
 /**
  * Created by Yury_Bakhmutski on 5/17/2016.
  */
-@RunWith( SpringJUnit4ClassRunner.class ) @ContextConfiguration( "file:src/main/resources/spring-context.xml" )
+@RunWith( SpringJUnit4ClassRunner.class )
+@ContextConfiguration(classes = TestAppConfig.class)
 public class TestSpringConfigs {
-  @Autowired AuditoriumServiceImpl auditoriumServiceImpl;
+  @Autowired AuditoriumService auditoriumServiceImpl;
 
-  @Autowired BookingServiceImpl bookingServiceImpl;
+  @Autowired BookingService bookingServiceImpl;
 
-  @Autowired EventServiceImpl eventServiceImpl;
+  @Autowired EventService eventServiceImpl;
 
-  @Autowired UserServiceImpl userServiceImpl;
+  @Autowired UserService userServiceImpl;
+
+  @Autowired CounterAspect counterAspect;
 
   @Before
   public void initEvent() throws Exception {
@@ -123,6 +126,8 @@ public class TestSpringConfigs {
 
     Set<Ticket> booked = bookingServiceImpl.getPurchasedTicketsForEvent( zootopia, eventDate );
     assertEquals( 1, booked.size() );
+
+    counterAspect.printGetByNameCallsNumber( zootopia );
 
   }
 }

@@ -47,13 +47,8 @@ public class CounterAspect {
   }
 
   @AfterReturning( pointcut = "getTicketsPriceCallsNumber()", returning = "returnedPrice" )
-  public void countGetTicketsPriceCalls(JoinPoint joinPoint, Event myEvent) {
+  public void countGetTicketsPriceCalls(JoinPoint joinPoint, Event returnedPrice) {
    throw new UnsupportedOperationException(  );
-  }
-
-  @AfterReturning( pointcut = "bookTickets()" )
-  public void countBookedTickets(JoinPoint joinPoint, Event myEvent) {
-    throw new UnsupportedOperationException(  );
   }
 
 }

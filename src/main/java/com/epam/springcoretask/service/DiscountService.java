@@ -2,6 +2,7 @@ package com.epam.springcoretask.service;
 
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 

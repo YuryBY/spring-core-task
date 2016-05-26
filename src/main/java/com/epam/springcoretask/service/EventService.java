@@ -1,6 +1,7 @@
 package com.epam.springcoretask.service;
 
 import com.epam.springcoretask.domain.Event;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Yuriy_Tkach

@@ -1,6 +1,7 @@
 package com.epam.springcoretask.service;
 
 import com.epam.springcoretask.domain.Auditorium;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 

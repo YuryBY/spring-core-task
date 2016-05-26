@@ -6,7 +6,6 @@ import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.Ticket;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.domain.util.EventRating;
-import com.epam.springcoretask.exception.AlreadyBookedException;
 import com.epam.springcoretask.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

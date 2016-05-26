@@ -10,7 +10,8 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/25/2016.
  */
-@Repository public class DiscountStatisticDao {
+@Repository
+public class DiscountStatisticDao {
   Map<DiscountStatistic, Integer> statisticMap = new HashMap<>();
 
   public int loadStatistic( User user ) {
