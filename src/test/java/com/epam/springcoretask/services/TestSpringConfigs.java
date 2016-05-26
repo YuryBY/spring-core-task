@@ -1,5 +1,7 @@
 package com.epam.springcoretask.services;
 
+import com.epam.springcoretask.aspect.CounterAspect;
+import com.epam.springcoretask.dao.EventStatisticDao;
 import com.epam.springcoretask.domain.Auditorium;
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.Ticket;

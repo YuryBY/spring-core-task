@@ -96,6 +96,13 @@ public class Event extends DomainObject {
     return result;
   }
 
+  @Override
+  public String toString() {
+    return "Event{" +
+        "name='" + name + '\'' +
+        '}';
+  }
+
   public NavigableMap<Auditorium, Set<Ticket>> getPlacePurchasedTickets() {
     return placePurchasedTickets;
   }

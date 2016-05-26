@@ -14,47 +14,11 @@
 
     <tx:annotation-driven/>
 
-    <context:component-scan base-package="com.earthport.bankint.config">
-        <context:include-filter type="annotation" expression="org.springframework.context.annotation.Configuration" />
-    </context:component-scan>
+    <!--<context:component-scan base-package="com.epam.springcoretask"/>-->
+
 
     <context:component-scan base-package="com.epam.springcoretask.service"/>
     <context:component-scan base-package="com.epam.springcoretask.dao"/>
-
-
-<!--    <bean id="birthdayStrategy"
-          class="com.epam.springcoretask.service.implementation.discountstrategy.BirthdayStrategy"/>
-    <bean id="ticketsQuantityStrategy"
-          class="com.epam.springcoretask.service.implementation.discountstrategy.TicketsQuantityStrategy"/>
-    <util:list id="strategiesList"
-               value-type="com.epam.springcoretask.service.implementation.discountstrategy.IDiscountStrategy">
-        <ref bean="birthdayStrategy"/>
-        <ref bean="ticketsQuantityStrategy"/>
-    </util:list>
-    <bean id="discountServiceImpl" class="com.epam.springcoretask.service.implementation.DiscountServiceImpl">
-        <property name="strategies" ref="strategiesList"/>
-    </bean>-->
-
-    <!--<bean id="bookingServiceImpl" class="com.epam.springcoretask.service.implementation.BookingServiceImpl">
-        <constructor-arg ref="discountServiceImpl"/>
-        <property name="ticketDao">
-            <bean class="com.epam.springcoretask.dao.TicketDao"/>
-        </property>
-    </bean>-->
-
-    <!--<bean id="eventServiceImpl" class="com.epam.springcoretask.service.implementation.EventServiceImpl">
-        <property name="eventDao">
-            <bean class="com.epam.springcoretask.dao.EventDao"/>
-        </property>
-    </bean>-->
-
-    <!--<bean id="userServiceImpl" class="com.epam.springcoretask.service.implementation.UserServiceImpl">
-        <property name="userDao">
-            <bean class="com.epam.springcoretask.dao.UserDao"/>
-        </property>
-    </bean>-->
-
-
 
 </beans>
 

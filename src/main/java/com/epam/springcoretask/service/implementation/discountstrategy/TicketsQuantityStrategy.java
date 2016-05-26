@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * Created by Yury_Bakhmutski on 5/23/2016.
  */
 @Component
-public class TicketsQuantityStrategy implements IDiscountStrategy {
+public class TicketsQuantityStrategy implements String {
   byte discount = 50;
 
   @Override

@@ -2,6 +2,7 @@ package com.epam.springcoretask.dao;
 
 import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.util.EventStatistic;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * Created by Yury_Bakhmutski on 5/25/2016.
  */
+@Repository
 public class EventStatisticDao {
   Map<Event, EventStatistic> statisticMap = new HashMap<>();
 
@@ -16,7 +18,7 @@ public class EventStatisticDao {
     return statisticMap.get( event );
   }
 
-  public void saveStatistic( Event event, EventStatistic eventStatistic ) {
+  public void  saveStatistic( Event event, EventStatistic eventStatistic ) {
     statisticMap.put( event, eventStatistic );
   }
 

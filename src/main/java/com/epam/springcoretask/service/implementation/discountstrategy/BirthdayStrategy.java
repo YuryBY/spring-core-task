@@ -12,7 +12,7 @@ import java.time.Month;
  * Created by Yury_Bakhmutski on 5/23/2016.
  */
 @Component
-public class BirthdayStrategy implements IDiscountStrategy {
+public class BirthdayStrategy implements String {
   byte discount = 5;
 
   @Override

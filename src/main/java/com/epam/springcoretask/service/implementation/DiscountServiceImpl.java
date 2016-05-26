@@ -4,16 +4,11 @@ import com.epam.springcoretask.domain.Event;
 import com.epam.springcoretask.domain.User;
 import com.epam.springcoretask.service.DiscountService;
 import com.epam.springcoretask.service.implementation.discountstrategy.BirthdayStrategy;
-import com.epam.springcoretask.service.implementation.discountstrategy.IDiscountStrategy;
+import com.epam.springcoretask.service.implementation.discountstrategy.String;
 import com.epam.springcoretask.service.implementation.discountstrategy.TicketsQuantityStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,35 +18,24 @@ import java.util.List;
 @Service
 public class DiscountServiceImpl implements DiscountService {
 
-  @Autowired
-  private BirthdayStrategy birthdayStrategy;
-  @Autowired
-  private TicketsQuantityStrategy ticketsQuantityStrategy;
-
-  private List<IDiscountStrategy> strategies = new ArrayList<IDiscountStrategy>( 2 );
-
-  public DiscountServiceImpl( ) {
-    System.out.println("birthdayStrategy:"+birthdayStrategy);
-    strategies.add( birthdayStrategy );
-    strategies.add( ticketsQuantityStrategy );
-  }
+  private List<String> strategies
+      = Arrays.asList( new BirthdayStrategy(), new TicketsQuantityStrategy() );
 
   @Override
   public byte getDiscount( User user, Event event, LocalDateTime airDateTime, long numberOfTickets ) {
     byte result = 0;
-    for ( IDiscountStrategy strategy : strategies ) {
-      System.out.println("strategy "+strategy);
+    for ( String strategy : strategies ) {
       byte disc = strategy.getDiscount( user, event, airDateTime, numberOfTickets );
       result = ( disc > result ) ? disc : result;
     }
     return result;
   }
 
-  public void addStrategy( IDiscountStrategy strategy ) {
+  public void addStrategy( String strategy ) {
     strategies.add( strategy );
   }
 
-  public void setStrategies( List<IDiscountStrategy> strategies ) {
+  public void setStrategies( List<String> strategies ) {
     this.strategies = strategies;
   }
 }
