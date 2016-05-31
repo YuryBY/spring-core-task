@@ -34,7 +34,8 @@ import static org.junit.Assert.assertEquals;
  * Created by Yury_Bakhmutski on 5/17/2016.
  */
 @RunWith( SpringJUnit4ClassRunner.class )
-@ContextConfiguration(classes = TestAppConfig.class)
+//@ContextConfiguration(classes = TestAppConfig.class)
+@ContextConfiguration( "file:src/main/resources/spring-context.xml" )
 public class TestSpringConfigs {
   @Autowired AuditoriumService auditoriumServiceImpl;
 

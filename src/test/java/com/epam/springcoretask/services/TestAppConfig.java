@@ -10,6 +10,5 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan( { "com.epam.springcoretask.service", "com.epam.springcoretask.dao", "com.epam.springcoretask.aspect" } )
-//@ComponentScan("com.epam.springcoretask")
 public class TestAppConfig {
 }

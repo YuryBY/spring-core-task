@@ -30,7 +30,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
   @Override
   public Set<Auditorium> getAll() {
-    return auditoriumDao.getAuditoriums();
+    return auditoriumDao.getAll();
   }
 
   @Override
